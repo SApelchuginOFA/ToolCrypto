@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Security.Cryptography;
 
-namespace OFA.Test.Progs
+using CustomUtilities;
+
+namespace Tool.Crypto
 {
     public partial class FormMain : Form
     {
@@ -14,13 +13,9 @@ namespace OFA.Test.Progs
 
             try
             {
-                Log.SetLogDirectory(true, $@"\Tmp\POC_Logs\");
-
                 Log.WriteFileLog("============================");
                 Log.WriteFileLog("=== START TOOL CRYPTO");
-                //Log.WriteFileLog($"=== Log: {Log.GetLogDirectory()}");
                 Log.WriteFileLog("============================");
-                //Log.WriteFileLog("############################");
             }
             catch (Exception ex)
             {
@@ -46,8 +41,6 @@ namespace OFA.Test.Progs
             }
             else
             {
-
-            //Log.WriteFileLog("############################");
             Log.WriteFileLog("============================");
             Log.WriteFileLog("=== END TOOL CRYPTO");
             Log.WriteFileLog("============================");
@@ -74,8 +67,8 @@ namespace OFA.Test.Progs
                 {
                     //DESCryptoServiceProvider cryptoProvider = new DESCryptoServiceProvider();
 
-                    textBox_Encoded.Text = CryptString2.Encrypt(textBox_OriginalString.Text, textBox_SecretKey.Text);
-                    textBox_Decoded.Text = CryptString2.Decrypt(textBox_Encoded.Text, textBox_SecretKey.Text);
+                    textBox_Encoded.Text = Crypt.Encrypt(textBox_OriginalString.Text, textBox_SecretKey.Text);
+                    textBox_Decoded.Text = Crypt.Decrypt(textBox_Encoded.Text, textBox_SecretKey.Text);
 
                     textBox_XML.Text = $@"<add key=""[KEY]"" value=""{textBox_Encoded.Text}"" />";
 

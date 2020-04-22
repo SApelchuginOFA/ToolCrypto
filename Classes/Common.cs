@@ -3,7 +3,7 @@ using System.IO;
 using System.Xml;
 using System.Collections.Generic;
 
-namespace OFA.Test.Progs
+namespace CustomUtilities
 {
     public static class Common
     {

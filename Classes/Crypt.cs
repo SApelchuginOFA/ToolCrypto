@@ -4,9 +4,9 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Linq;
 
-namespace OFA.Test.Progs
+namespace CustomUtilities
 {
-    public static class CryptString2
+    public static class Crypt
     {
         public static string Encrypt(string originalString, string strSecret)
         {

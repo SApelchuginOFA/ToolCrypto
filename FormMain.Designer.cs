@@ -1,4 +1,4 @@
-﻿namespace OFA.Test.Progs
+﻿namespace Tool.Crypto
 {
     partial class FormMain
     {
@@ -30,8 +30,6 @@
         {
             this.button_Encode = new System.Windows.Forms.Button();
             this.panel_Exec = new System.Windows.Forms.Panel();
-            this.button_CopyXMLToClipboard = new System.Windows.Forms.Button();
-            this.button_CopyEncodedToClipboard = new System.Windows.Forms.Button();
             this.label_DecodedString = new System.Windows.Forms.Label();
             this.textBox_Decoded = new System.Windows.Forms.TextBox();
             this.label_EncodedString = new System.Windows.Forms.Label();
@@ -40,6 +38,8 @@
             this.textBox_OriginalString = new System.Windows.Forms.TextBox();
             this.textBox_SecretKey = new System.Windows.Forms.TextBox();
             this.label_SecretKey = new System.Windows.Forms.Label();
+            this.button_CopyXMLToClipboard = new System.Windows.Forms.Button();
+            this.button_CopyEncodedToClipboard = new System.Windows.Forms.Button();
             this.button_Exit = new System.Windows.Forms.Button();
             this.groupBox_Console = new System.Windows.Forms.GroupBox();
             this.textBox_XML = new System.Windows.Forms.TextBox();
@@ -74,26 +74,6 @@
             this.panel_Exec.Name = "panel_Exec";
             this.panel_Exec.Size = new System.Drawing.Size(990, 183);
             this.panel_Exec.TabIndex = 3;
-            // 
-            // button_CopyXMLToClipboard
-            // 
-            this.button_CopyXMLToClipboard.Location = new System.Drawing.Point(525, 21);
-            this.button_CopyXMLToClipboard.Name = "button_CopyXMLToClipboard";
-            this.button_CopyXMLToClipboard.Size = new System.Drawing.Size(259, 48);
-            this.button_CopyXMLToClipboard.TabIndex = 18;
-            this.button_CopyXMLToClipboard.Text = "Copy XML to clipboard";
-            this.button_CopyXMLToClipboard.UseVisualStyleBackColor = true;
-            this.button_CopyXMLToClipboard.Click += new System.EventHandler(this.button_CopyXMLToClipboard_Click);
-            // 
-            // button_CopyEncodedToClipboard
-            // 
-            this.button_CopyEncodedToClipboard.Location = new System.Drawing.Point(210, 21);
-            this.button_CopyEncodedToClipboard.Name = "button_CopyEncodedToClipboard";
-            this.button_CopyEncodedToClipboard.Size = new System.Drawing.Size(259, 48);
-            this.button_CopyEncodedToClipboard.TabIndex = 17;
-            this.button_CopyEncodedToClipboard.Text = "Copy Encoded string to clipboard";
-            this.button_CopyEncodedToClipboard.UseVisualStyleBackColor = true;
-            this.button_CopyEncodedToClipboard.Click += new System.EventHandler(this.button_CopyEncodedToClipboard_Click);
             // 
             // label_DecodedString
             // 
@@ -159,6 +139,26 @@
             this.label_SecretKey.TabIndex = 5;
             this.label_SecretKey.Text = "Secret Key";
             // 
+            // button_CopyXMLToClipboard
+            // 
+            this.button_CopyXMLToClipboard.Location = new System.Drawing.Point(525, 21);
+            this.button_CopyXMLToClipboard.Name = "button_CopyXMLToClipboard";
+            this.button_CopyXMLToClipboard.Size = new System.Drawing.Size(259, 48);
+            this.button_CopyXMLToClipboard.TabIndex = 18;
+            this.button_CopyXMLToClipboard.Text = "Copy XML to clipboard";
+            this.button_CopyXMLToClipboard.UseVisualStyleBackColor = true;
+            this.button_CopyXMLToClipboard.Click += new System.EventHandler(this.button_CopyXMLToClipboard_Click);
+            // 
+            // button_CopyEncodedToClipboard
+            // 
+            this.button_CopyEncodedToClipboard.Location = new System.Drawing.Point(210, 21);
+            this.button_CopyEncodedToClipboard.Name = "button_CopyEncodedToClipboard";
+            this.button_CopyEncodedToClipboard.Size = new System.Drawing.Size(259, 48);
+            this.button_CopyEncodedToClipboard.TabIndex = 17;
+            this.button_CopyEncodedToClipboard.Text = "Copy Encoded string to clipboard";
+            this.button_CopyEncodedToClipboard.UseVisualStyleBackColor = true;
+            this.button_CopyEncodedToClipboard.Click += new System.EventHandler(this.button_CopyEncodedToClipboard_Click);
+            // 
             // button_Exit
             // 
             this.button_Exit.Location = new System.Drawing.Point(831, 21);
@@ -214,7 +214,7 @@
             this.Name = "FormMain";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Tool Crypto [Ver.2020.04.21]";
+            this.Text = "Tool Crypto [Ver.2020.04.22]";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.panel_Exec.ResumeLayout(false);
             this.panel_Exec.PerformLayout();

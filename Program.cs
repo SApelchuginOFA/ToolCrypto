@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace OFA.Test.Progs
+namespace Tool.Crypto
 {
     static class Program
     {

@@ -1,119 +1,83 @@
 ﻿using System;
 using System.IO;
-//using System.Xml;
-//using System.Collections.Generic;
 
-namespace OFA.Test.Progs
+namespace CustomUtilities
 {
     public enum LogMsgType
     {
-        MESSAGE = 0,
-        WARNING = -1,
-        ERROR = -2
+        CRITICAL = 3,
+        ERROR = 2,
+        WARNING = 1,
+        MESSAGE = 0
     }
 
     public static class Log
     {
-        private static string _logDir = @".\logs\";
+        public static string LogDir = @".\logs\"; //defalt log dir
+        public static string LogFile = @"log.log"; //defaut log file name
+        public static string LogFileFullPath = $"{LogDir}{LogFile}"; //default full path
 
-        /*
-        public static KeyValuePair<string, string> getKeyValueFromXML(string xmlStr)
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(xmlStr);
+        public static bool UseCurrentDataInLogFileName = false;
 
-            string k = xmlDoc.DocumentElement.Attributes["key"].Value;
-            string v = xmlDoc.DocumentElement.Attributes["value"].Value;
-
-            KeyValuePair<string, string> keyItem = new KeyValuePair<string, string>(k, v);
-
-            return keyItem;
-        }
-        */
-
-        /*
-        public static string ReadTextFile(string fileFullName)
-        {
-            int cntLine = 0;
-            string strFile = String.Empty;
-
-            if (File.Exists(fileFullName))
-            {
-                try
-                {
-                    using (StreamReader sReader = File.OpenText(fileFullName))
-                    {
-                        while (!sReader.EndOfStream)
-                        {
-                            cntLine++;
-                            strFile += sReader.ReadLine();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Log.WriteFileLog($"File: [{fileFullName}]  String No[{cntLine}", -2);
-                    Log.WriteFileLog($"{ex.Message}", -2);
-                }
-            }
-            else 
-            {
-                Log.WriteFileLog($"File: [{fileFullName}] not found", -2);
-            }
-
-            return strFile;
-        }
-        */
-
-        public static string SetLogDirectory(string strLogDir)
-        {
-            return SetLogDirectory(false, strLogDir);
-        }
-
-        public static string SetLogDirectory(bool isUserProfile, string strLogDir)
-        {
-            if (isUserProfile)
-            {
-                strLogDir = strLogDir.Trim(new char[] {' ','\\'});
-
-                string userProfileDir = Environment.GetEnvironmentVariable("USERPROFILE");
-
-                _logDir = $@"{userProfileDir}\{strLogDir}\";
-            }
-            else
-            {
-                _logDir = $@"{strLogDir}";
-            }
-
-            return _logDir;
-        }
-
-        public static string GetLogDirectory()
-        {
-            return _logDir;
-        }
-
+        public static int MaxLevel = 0;
 
         public static void WriteFileLog(string strLog, LogMsgType logType = LogMsgType.MESSAGE)
         {
-            string logFileName = _logDir + DateTime.Now.ToString("yyyyMMdd") + ".log";
+            string logFileName = LogFileFullPath;
 
-            if (!Directory.Exists(_logDir)) { Directory.CreateDirectory(_logDir); }
+            if (UseCurrentDataInLogFileName)
+            {
+                logFileName = $"{Log.LogDir}{DateTime.Now.ToString("yyyyMMdd")}.log";
+            }
+
+            if (!Directory.Exists(LogDir)) { Directory.CreateDirectory(LogDir); }
+
+
+            if (logType == LogMsgType.CRITICAL)
+                strLog = $"[{DateTime.Now.ToString("HH:mm:ss")}] CRITICAL: {strLog}";
 
             if (logType == LogMsgType.ERROR)
-            {
-                strLog = String.Format("[{0}] ERROR: {1}", DateTime.Now.ToString("HH:mm:ss"), strLog);
-            }
-            else if (logType == LogMsgType.WARNING)
-            {
-                strLog = String.Format("[{0}] WARNING: {1}", DateTime.Now.ToString("HH:mm:ss"), strLog);
-            }
-            else
-            {
-                strLog = String.Format("[{0}] MESSAGE: {1}", DateTime.Now.ToString("HH:mm:ss"), strLog);
-            }
+                strLog = $"[{DateTime.Now.ToString("HH:mm:ss")}] ERROR: {strLog}";
 
-            Common.WriteTextFile(logFileName, strLog);
+            if (logType == LogMsgType.WARNING)
+                strLog = $"[{DateTime.Now.ToString("HH:mm:ss")}] WARNING: {strLog}";
+
+            if (logType == LogMsgType.MESSAGE)
+                strLog = $"[{DateTime.Now.ToString("HH:mm:ss")}] MESSAGE: {strLog}";
+
+            if ((int)logType >= Log.MaxLevel)
+                Log.WriteTextFile(logFileName, strLog);
         }
+
+        public static void WriteTextFile(string fileFullName, string strLine)
+        {
+            strLine = strLine.TrimEnd(Environment.NewLine.ToCharArray());
+
+            Console.WriteLine(strLine);
+
+            try
+            {
+                if (File.Exists(fileFullName))
+                {
+                    using (StreamWriter sw = File.AppendText(fileFullName))
+                    {
+                        sw.WriteLine(strLine);
+                    }
+                }
+                else
+                {
+                    using (StreamWriter sw = File.CreateText(fileFullName))
+                    {
+                        sw.WriteLine(strLine);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.WriteFileLog($"File: [{fileFullName}]", LogMsgType.ERROR);
+                Log.WriteFileLog($"{ex.Message}", LogMsgType.ERROR);
+            }
+        }
+
     }
 }
