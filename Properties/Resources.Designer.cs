@@ -8,7 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OFA.Test.Progs.Properties {
+namespace Tool.Crypto
+{
     using System;
     
     

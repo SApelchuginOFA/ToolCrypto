@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OFA.Test.Progs.Properties {
+namespace Tool.Crypto.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
